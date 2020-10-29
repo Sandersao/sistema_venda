@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Cliente;
+use App\Models\Venda;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ClienteFactory extends Factory
+class VendaFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Cliente::class;
+    protected $model = Venda::class;
 
     /**
      * Define the model's default state.
@@ -22,10 +22,8 @@ class ClienteFactory extends Factory
     public function definition()
     {
         return [
-            'nome' => $this->faker->name(
-                (rand(1, 100) > 20 ? 'male' : 'female')
-            ),
-            'cpf' => rand(11111111111, 99999999999),
+            'id_cliente' => rand(1, 50),
+            'id_colaborador' => rand(1, 20),
         ];
     }
 }
