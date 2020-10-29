@@ -18,6 +18,7 @@ class CreateEntradasTable extends Migration
             $table->integer('id_produto');
             $table->integer('qtde');
             $table->float('preco');
+            $table->float('margem_lucro');
             $table->timestamps();
         });
     }

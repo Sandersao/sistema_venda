@@ -11,7 +11,6 @@ class Produto extends Model
 
     protected $filalble = [
         'nome',
-        'preco',
         'ean',
     ];
 }
