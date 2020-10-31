@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Saida;
 use Illuminate\Http\Request;
 
 class SaidaController extends Controller
@@ -13,17 +14,8 @@ class SaidaController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $saidas = Saida::paginate(10);
+        return $saidas;
     }
 
     /**
@@ -34,7 +26,8 @@ class SaidaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $saidas = Saida::create($request);
+        return $saidas;
     }
 
     /**
@@ -45,18 +38,20 @@ class SaidaController extends Controller
      */
     public function show($id)
     {
-        //
+        $saidas = Saida::find($id);
+        return $saidas;
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Display the specified resource based on it's id_venda.
      *
-     * @param  int  $id
+     * @param  int  $idVenda
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function showFromVenda($id)
     {
-        //
+        $saidas = Saida::where('id_venda', $id);
+        return $saidas->get();
     }
 
     /**
@@ -68,7 +63,8 @@ class SaidaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $saidas = Saida::find($id)->update($request);
+        return $saidas;
     }
 
     /**
@@ -79,6 +75,7 @@ class SaidaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $saidas = Saida::find($id)->delete();
+        return $saidas;
     }
 }

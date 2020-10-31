@@ -12,5 +12,6 @@ class Venda extends Model
     protected $fillable = [
         'id_cliente',
         'id_colaborador',
+        'st_finalizada'
     ];
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Produto;
 use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
@@ -13,17 +14,8 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $produtos = Produto::paginate(10);
+        return $produtos;
     }
 
     /**
@@ -34,7 +26,8 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $produtos = Produto::create($request);
+        return $produtos;
     }
 
     /**
@@ -45,18 +38,8 @@ class ProdutoController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $produtos = Produto::find($id);
+        return $produtos;
     }
 
     /**
@@ -68,7 +51,8 @@ class ProdutoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $protudos = Produto::find($id)->update($request);
+        return $protudos;
     }
 
     /**
@@ -79,6 +63,7 @@ class ProdutoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $produtos = Produto::find($id)->delete();
+        return $produtos;
     }
 }

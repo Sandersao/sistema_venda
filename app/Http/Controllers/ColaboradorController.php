@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Colaborador;
 
 class ColaboradorController extends Controller
 {
@@ -13,17 +14,8 @@ class ColaboradorController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $colaboradors = Colaborador::paginate(10);
+        return $colaboradors;
     }
 
     /**
@@ -34,7 +26,8 @@ class ColaboradorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $colaborador = Colaborador::create($request);
+        return $colaborador;
     }
 
     /**
@@ -45,18 +38,8 @@ class ColaboradorController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $colaboradors = Colaborador::find($id);
+        return $colaboradors;
     }
 
     /**
@@ -68,7 +51,8 @@ class ColaboradorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $colaborador = Colaborador::find($id)->update($request->all());
+        return $colaborador;
     }
 
     /**
@@ -79,6 +63,7 @@ class ColaboradorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $colaborador = Colaborador::find($id)->delete();
+        return $colaborador;
     }
 }

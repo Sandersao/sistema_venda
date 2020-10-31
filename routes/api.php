@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\ClienteController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,9 +17,24 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::resource('/cliente', 'ClienteController');
-Route::resource('/colaborador', 'ColaboradorController');
-Route::resource('/entrada', 'EntradaController');
-Route::resource('/produto', 'ProdutoController');
-Route::resource('/saida', 'SaidaController');
-Route::resource('/venda', 'VendaController');
+// CRUD
+Route::apiResource('/cliente', 'ClienteController');
+Route::apiResource('/colaborador', 'ColaboradorController');
+Route::apiResource('/entrada', 'EntradaController');
+Route::apiResource('/produto', 'ProdutoController');
+Route::apiResource('/saida', 'SaidaController');
+Route::apiResource('/venda', 'VendaController');
+
+// Functionalidades
+Route::get(
+    '/saida/venda/{venda}',
+    'SaidaController@showFromVenda'
+)->name('saida.venda.show');
+Route::get(
+    '/venda/colaborador/{colaborador}',
+    'VendaController@showFromColaborador'
+)->name('venda.colaborador.show');
+Route::put(
+    '/venda/close/{colaborador}',
+    'VendaController@close'
+)->name('venda.close');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Entrada;
 use Illuminate\Http\Request;
 
 class EntradaController extends Controller
@@ -13,17 +14,8 @@ class EntradaController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $entradas = Entrada::paginate(10);
+        return $entradas;
     }
 
     /**
@@ -34,7 +26,8 @@ class EntradaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $entradas = Entrada::create($request);
+        return $entradas;
     }
 
     /**
@@ -45,18 +38,7 @@ class EntradaController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $entradas = Entrada::find($id);
     }
 
     /**
@@ -68,7 +50,8 @@ class EntradaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $entradas = Entrada::find($id)->update($request);
+        return $entradas;
     }
 
     /**
@@ -79,6 +62,7 @@ class EntradaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $entradas = Entrada::find($id)->delete();
+        return $entradas;
     }
 }

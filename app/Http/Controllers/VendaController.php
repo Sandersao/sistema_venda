@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Venda;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class VendaController extends Controller
 {
@@ -13,17 +15,8 @@ class VendaController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $vendas = Venda::paginate(10);
+        return $vendas;
     }
 
     /**
@@ -34,7 +27,10 @@ class VendaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $requestData = $request->all();
+        $requestData['st_finalizada'] = 0;
+        $vendas = Venda::create($requestData);
+        return $vendas;
     }
 
     /**
@@ -45,18 +41,24 @@ class VendaController extends Controller
      */
     public function show($id)
     {
-        //
+        $vendas = Venda::find($id);
+        return $vendas;
     }
-
     /**
-     * Show the form for editing the specified resource.
+     * Display the specified resource based on it's id_colaborador.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function showFromColaborador($id)
     {
-        //
+        $vendas = Venda::where([
+            ['id_colaborador', '=', $id],
+            ['st_finalizada', 0],
+        ])
+            ->orderBy('created_at', 'desc')
+            ->limit(1);
+        return $vendas->get();
     }
 
     /**
@@ -68,7 +70,21 @@ class VendaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $vendas = Venda::find($id)->update($request);
+        return $vendas;
+    }
+
+    /**
+     * Close a previously created resource in storage by seting the field st_finalizada equals to 1.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function close($id)
+    {
+        $requestData = ['st_finalizada' => 1];
+        $vendas = Venda::find($id)->update($requestData);
+        return $vendas;
     }
 
     /**
@@ -79,6 +95,7 @@ class VendaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $vendas = Venda::find($id)->delete();
+        return $vendas;
     }
 }
