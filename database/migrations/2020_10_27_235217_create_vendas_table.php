@@ -17,6 +17,7 @@ class CreateVendasTable extends Migration
             $table->id();
             $table->integer('id_cliente');
             $table->integer('id_colaborador');
+            $table->tinyInteger('st_finalizada');
             $table->timestamps();
         });
     }

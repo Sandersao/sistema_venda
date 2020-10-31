@@ -24,6 +24,7 @@ class VendaFactory extends Factory
         return [
             'id_cliente' => rand(1, 50),
             'id_colaborador' => rand(1, 20),
+            'st_finalizada' => 1,
         ];
     }
 }
