@@ -22,6 +22,13 @@ class CreateSaidasTable extends Migration
             $table->float('margem_lucro_momento');
             $table->float('desconto');
             $table->timestamps();
+
+            $table->foreign('id_produto')
+                ->references('id')
+                ->on('produtos');
+            $table->foreign('id_venda')
+                ->references('id')
+                ->on('vendas');
         });
     }
 

@@ -16,10 +16,16 @@ class ColaboradorController extends Controller
     {
         try {
             $colaboradores = Colaborador::paginate(10);
-            return response($colaboradores)
+            return response([
+                'message' => 'Colaboradores resgatados com sucesso',
+                'data' => $colaboradores,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response()
+            return response([
+                'message' => 'Problema ao resgatar os colaboradores',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -34,10 +40,16 @@ class ColaboradorController extends Controller
     {
         try {
             $colaboradores = Colaborador::create($request);
-            return response($colaboradores)
+            return response([
+                'message' => 'Colaborador cadastrado com sucesso',
+                'data' => $colaboradores,
+            ])
                 ->setStatusCode(201);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema a ocadastrar o colaborador',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -52,10 +64,16 @@ class ColaboradorController extends Controller
     {
         try {
             $colaboradores = Colaborador::find($id);
-            return response($colaboradores)
+            return response([
+                'message' => 'Colaborador resgatado com sucesso',
+                'data' => $colaboradores,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao resgatar o colaborador',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -72,10 +90,16 @@ class ColaboradorController extends Controller
         try {
             $colaboradores = Colaborador::find($id)
                 ->update($request->all());
-            return response($colaboradores)
+            return response([
+                'message' => 'Colaborador atualizado com sucesso',
+                'data' => $colaboradores,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao atualizar o colaborador',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -91,10 +115,16 @@ class ColaboradorController extends Controller
         try {
             $colaboradores = Colaborador::find($id)
                 ->delete();
-            return response($colaboradores)
+            return response([
+                'message' => 'Colaborador excluído com sucesso',
+                'data' => $colaboradores,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao excluir o colaborador',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }

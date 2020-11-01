@@ -16,10 +16,16 @@ class SaidaController extends Controller
     {
         try {
             $saidas = Saida::paginate(10);
-            return response($saidas)
+            return response([
+                'message' => 'Saídas resgatadas com sucesso',
+                'data' => $saidas,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao resgatar as saídas',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -34,10 +40,16 @@ class SaidaController extends Controller
     {
         try {
             $saidas = Saida::create($request);
-            return response($saidas)
+            return response([
+                'message' => 'Saída cadastrada com sucesso',
+                'data' => $saidas,
+            ])
                 ->setStatusCode(201);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao cadastrar a saída',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -52,10 +64,16 @@ class SaidaController extends Controller
     {
         try {
             $saidas = Saida::find($id);
-            return response($saidas)
+            return response([
+                'message' => 'Saída resgatar com sucesso',
+                'data' => $saidas,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao resgatadas a saída',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -71,10 +89,16 @@ class SaidaController extends Controller
         try {
             $saidas = Saida::where('id_venda', $id)
                 ->get();
-            return response($saidas)
+            return response([
+                'message' => 'Saídas da venda resgatadas com sucesso',
+                'data' => $saidas,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao regatar saídas da venda especificada',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -90,10 +114,16 @@ class SaidaController extends Controller
     {
         try {
             $saidas = Saida::find($id)->update($request);
-            return response($saidas)
+            return response([
+                'message' => 'Saída alterada com sucesso',
+                'data' => $saidas,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao atualizar a saída',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -108,10 +138,16 @@ class SaidaController extends Controller
     {
         try {
             $saidas = Saida::find($id)->delete();
-            return response($saidas)
+            return response([
+                'message' => 'Saída excluída com sucesso',
+                'data' => $saidas,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao excluir saida',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }

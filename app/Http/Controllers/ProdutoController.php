@@ -16,10 +16,16 @@ class ProdutoController extends Controller
     {
         try {
             $produtos = Produto::paginate(10);
-            return response($produtos)
+            return response([
+                'message' => 'Produtos resgatados com sucesso',
+                'data' => $produtos,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao resgatar os produtos',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -34,10 +40,16 @@ class ProdutoController extends Controller
     {
         try {
             $produtos = Produto::create($request);
-            return response($produtos)
+            return response([
+                'message' => 'Produto cadastrado com sucesso',
+                'data' => $produtos,
+            ])
                 ->setStatusCode(201);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao cadastrar o produto',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -52,10 +64,16 @@ class ProdutoController extends Controller
     {
         try {
             $produtos = Produto::find($id);
-            return response($produtos)
+            return response([
+                'message' => 'Produto resgatado com sucesso',
+                'data' => $produtos,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao resgatar o produto',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -72,10 +90,16 @@ class ProdutoController extends Controller
         try {
             $produtos = Produto::find($id)
                 ->update($request);
-            return response($produtos)
+            return response([
+                'message' => 'Produto atualizado com sucesso',
+                'data' => $produtos,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao atualizar o produto',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -91,10 +115,16 @@ class ProdutoController extends Controller
         try {
             $produtos = Produto::find($id)
                 ->delete();
-            return response($produtos)
+            return response([
+                'message' => 'Produto excluído com sucesso',
+                'data' => $produtos,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao excluir produto',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }

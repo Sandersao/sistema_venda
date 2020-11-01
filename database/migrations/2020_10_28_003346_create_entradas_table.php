@@ -20,6 +20,10 @@ class CreateEntradasTable extends Migration
             $table->float('preco');
             $table->float('margem_lucro');
             $table->timestamps();
+
+            $table->foreign('id_produto')
+                ->references('id')
+                ->on('produtos');
         });
     }
 

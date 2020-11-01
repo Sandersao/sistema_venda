@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Venda;
 use Illuminate\Http\Request;
 
@@ -16,10 +17,16 @@ class VendaController extends Controller
     {
         try {
             $vendas = Venda::paginate(10);
-            return response($vendas)
+            return response([
+                'message' => 'Vendas resgatadas com sucesso',
+                'data' => $vendas,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao resgatar as vendas',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -36,10 +43,16 @@ class VendaController extends Controller
             $requestData = $request->all();
             $requestData['st_finalizada'] = 0;
             $vendas = Venda::create($requestData);
-            return response($vendas)
+            return response([
+                'message' => 'Venda cadastrada com sucesso',
+                'data' => $vendas,
+            ])
                 ->setStatusCode(201);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao fazer o cadastro de venda',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -54,10 +67,16 @@ class VendaController extends Controller
     {
         try {
             $vendas = Venda::find($id);
-            return response($vendas)
+            return response([
+                'message' => 'Venda resgatada com sucesso',
+                'data' => $vendas,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao resgatar a venda',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -78,10 +97,16 @@ class VendaController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->limit(1)
                 ->get();
-            return response($vendas)
+            return response([
+                'message' => 'Vendas em aberto do calobarador resgatadas com sucesso',
+                'data' => $vendas,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao resgatar as vendas em aberto do calobarador',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -98,10 +123,16 @@ class VendaController extends Controller
         try {
             $vendas = Venda::find($id)
                 ->update($request);
-            return response($vendas)
+            return response([
+                'message' => 'Venda atualizada com sucesso',
+                'data' => $vendas,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Probela ao atualizar a venda',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -116,12 +147,22 @@ class VendaController extends Controller
     {
         try {
             $requestData = ['st_finalizada' => 1];
-            $vendas = Venda::find($id)
+            Venda::find($id)
                 ->update($requestData);
-            return response($vendas)
+            $vendas = Venda::find($id);
+            if ($vendas->st_finalizada == 0) {
+                throw new Exception('O registro não foi alterado');
+            }
+            return response([
+                'message' => 'Venda finalizada com sucesso',
+                'data' => $vendas,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'A venda não pôde ser fechada',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -137,10 +178,16 @@ class VendaController extends Controller
         try {
             $vendas = Venda::find($id)
                 ->delete();
-            return response($vendas)
+            return response([
+                'message' => 'Venda excluída com sucesso',
+                'data' => $vendas,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao excluír a venda',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
