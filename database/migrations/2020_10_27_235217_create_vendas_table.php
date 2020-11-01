@@ -19,6 +19,13 @@ class CreateVendasTable extends Migration
             $table->integer('id_colaborador');
             $table->tinyInteger('st_finalizada');
             $table->timestamps();
+
+            $table->foreign('id_cliente')
+                ->references('id')
+                ->on('clientes');
+            $table->foreign('id_colaborador')
+                ->references('id')
+                ->on('colaboradors');
         });
     }
 

@@ -22,8 +22,8 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         Cliente::factory(50)->create();
         Colaborador::factory(20)->create();
-        Entrada::factory(500)->create();
         Produto::factory(50)->create();
+        Entrada::factory(500)->create();
         Venda::factory(150)->create();
         Saida::factory(50)->create();
     }

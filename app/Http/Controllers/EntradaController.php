@@ -16,10 +16,16 @@ class EntradaController extends Controller
     {
         try {
             $entradas = Entrada::paginate(10);
-            return response($entradas)
+            return response([
+                'message' => 'Entradas resgatadas com sucesso',
+                'data' => $entradas,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao resgatar as entradas',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -34,10 +40,16 @@ class EntradaController extends Controller
     {
         try {
             $entradas = Entrada::create($request);
-            return response($entradas)
+            return response([
+                'message' => 'Entrada cadastrada com sucesso',
+                'data' => $entradas,
+            ])
                 ->setStatusCode(201);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao cadastrar a entrada',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -52,10 +64,16 @@ class EntradaController extends Controller
     {
         try {
             $entradas = Entrada::find($id);
-            return response($entradas)
+            return response([
+                'message' => 'Entrada resgatada com sucesso',
+                'data' => $entradas,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao resgatar a entrada',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -72,10 +90,16 @@ class EntradaController extends Controller
         try {
             $entradas = Entrada::find($id)
                 ->update($request);
-            return response($entradas)
+            return response([
+                'message' => 'Entrada atualizada com sucesso',
+                'data' => $entradas,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao atualizar a entrada',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -91,10 +115,16 @@ class EntradaController extends Controller
         try {
             $entradas = Entrada::find($id)
                 ->delete();
-            return response($entradas)
+            return response([
+                'message' => 'Entrada excluída com sucesso',
+                'data' => $entradas,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao excluir a entrada',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }

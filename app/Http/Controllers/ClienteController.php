@@ -16,10 +16,16 @@ class ClienteController extends Controller
     {
         try {
             $clientes = Cliente::paginate(10);
-            return response($clientes)
+            return response([
+                'message' => 'Clientes resgatados com sucesso',
+                'data' => $clientes,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao resgatar os clientes',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -34,10 +40,16 @@ class ClienteController extends Controller
     {
         try {
             $clientes = Cliente::create($request);
-            return response($clientes)
+            return response([
+                'message' => 'Cliente cadastrado com suecsso',
+                'data' => $clientes,
+            ])
                 ->setStatusCode(201);
         } catch (\Throwable $th) {
-            return response()
+            return response([
+                'message' => 'Problema ao cadastrar o cliente',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -52,10 +64,16 @@ class ClienteController extends Controller
     {
         try {
             $clientes = Cliente::find($id);
-            return response($clientes)
+            return response([
+                'message' => 'Cliente resgatado com suesso',
+                'data' => $clientes,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao resgatar o cliente',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -72,10 +90,16 @@ class ClienteController extends Controller
         try {
             $clientes = Cliente::find($id)
                 ->update($request->all());
-            return response($clientes)
+            return response([
+                'message' => 'Cliente atualizado com sucesso',
+                'data' => $clientes,
+            ])
                 ->setStatusCode(201);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao atualizar o cliente',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
@@ -91,10 +115,16 @@ class ClienteController extends Controller
         try {
             $clientes = Cliente::find($id)
                 ->delete();
-            return response($clientes)
+            return response([
+                'message' => 'Cliente excluído com sucesso',
+                'data' => $clientes,
+            ])
                 ->setStatusCode(200);
         } catch (\Throwable $th) {
-            return response([])
+            return response([
+                'message' => 'Problema ao excluir o cliente',
+                'data' => [],
+            ])
                 ->setStatusCode(500);
         }
     }
