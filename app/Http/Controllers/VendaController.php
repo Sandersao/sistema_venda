@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Venda;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class VendaController extends Controller
 {
@@ -15,8 +14,14 @@ class VendaController extends Controller
      */
     public function index()
     {
-        $vendas = Venda::paginate(10);
-        return $vendas;
+        try {
+            $vendas = Venda::paginate(10);
+            return response($vendas)
+                ->setStatusCode(200);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 
     /**
@@ -27,10 +32,16 @@ class VendaController extends Controller
      */
     public function store(Request $request)
     {
-        $requestData = $request->all();
-        $requestData['st_finalizada'] = 0;
-        $vendas = Venda::create($requestData);
-        return $vendas;
+        try {
+            $requestData = $request->all();
+            $requestData['st_finalizada'] = 0;
+            $vendas = Venda::create($requestData);
+            return response($vendas)
+                ->setStatusCode(201);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 
     /**
@@ -41,8 +52,14 @@ class VendaController extends Controller
      */
     public function show($id)
     {
-        $vendas = Venda::find($id);
-        return $vendas;
+        try {
+            $vendas = Venda::find($id);
+            return response($vendas)
+                ->setStatusCode(200);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
     /**
      * Display the specified resource based on it's id_colaborador.
@@ -52,13 +69,21 @@ class VendaController extends Controller
      */
     public function showFromColaborador($id)
     {
-        $vendas = Venda::where([
-            ['id_colaborador', '=', $id],
-            ['st_finalizada', 0],
-        ])
-            ->orderBy('created_at', 'desc')
-            ->limit(1);
-        return $vendas->get();
+        try {
+            $whereData = [
+                ['id_colaborador', '=', $id],
+                ['st_finalizada', 0],
+            ];
+            $vendas = Venda::where($whereData)
+                ->orderBy('created_at', 'desc')
+                ->limit(1)
+                ->get();
+            return response($vendas)
+                ->setStatusCode(200);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 
     /**
@@ -70,8 +95,15 @@ class VendaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $vendas = Venda::find($id)->update($request);
-        return $vendas;
+        try {
+            $vendas = Venda::find($id)
+                ->update($request);
+            return response($vendas)
+                ->setStatusCode(200);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 
     /**
@@ -82,9 +114,16 @@ class VendaController extends Controller
      */
     public function close($id)
     {
-        $requestData = ['st_finalizada' => 1];
-        $vendas = Venda::find($id)->update($requestData);
-        return $vendas;
+        try {
+            $requestData = ['st_finalizada' => 1];
+            $vendas = Venda::find($id)
+                ->update($requestData);
+            return response($vendas)
+                ->setStatusCode(200);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 
     /**
@@ -95,7 +134,14 @@ class VendaController extends Controller
      */
     public function destroy($id)
     {
-        $vendas = Venda::find($id)->delete();
-        return $vendas;
+        try {
+            $vendas = Venda::find($id)
+                ->delete();
+            return response($vendas)
+                ->setStatusCode(200);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 }

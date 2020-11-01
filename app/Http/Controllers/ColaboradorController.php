@@ -14,8 +14,14 @@ class ColaboradorController extends Controller
      */
     public function index()
     {
-        $colaboradors = Colaborador::paginate(10);
-        return $colaboradors;
+        try {
+            $colaboradores = Colaborador::paginate(10);
+            return response($colaboradores)
+                ->setStatusCode(200);
+        } catch (\Throwable $th) {
+            return response()
+                ->setStatusCode(500);
+        }
     }
 
     /**
@@ -26,8 +32,14 @@ class ColaboradorController extends Controller
      */
     public function store(Request $request)
     {
-        $colaborador = Colaborador::create($request);
-        return $colaborador;
+        try {
+            $colaboradores = Colaborador::create($request);
+            return response($colaboradores)
+                ->setStatusCode(201);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 
     /**
@@ -38,8 +50,14 @@ class ColaboradorController extends Controller
      */
     public function show($id)
     {
-        $colaboradors = Colaborador::find($id);
-        return $colaboradors;
+        try {
+            $colaboradores = Colaborador::find($id);
+            return response($colaboradores)
+                ->setStatusCode(200);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 
     /**
@@ -51,8 +69,15 @@ class ColaboradorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $colaborador = Colaborador::find($id)->update($request->all());
-        return $colaborador;
+        try {
+            $colaboradores = Colaborador::find($id)
+                ->update($request->all());
+            return response($colaboradores)
+                ->setStatusCode(200);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 
     /**
@@ -63,7 +88,14 @@ class ColaboradorController extends Controller
      */
     public function destroy($id)
     {
-        $colaborador = Colaborador::find($id)->delete();
-        return $colaborador;
+        try {
+            $colaboradores = Colaborador::find($id)
+                ->delete();
+            return response($colaboradores)
+                ->setStatusCode(200);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 }
