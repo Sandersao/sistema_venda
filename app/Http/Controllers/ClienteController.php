@@ -14,8 +14,14 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = Cliente::paginate(10);
-        return $clientes;
+        try {
+            $clientes = Cliente::paginate(10);
+            return response($clientes)
+                ->setStatusCode(200);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 
     /**
@@ -26,8 +32,14 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        $cliente = Cliente::create($request);
-        return $cliente;
+        try {
+            $clientes = Cliente::create($request);
+            return response($clientes)
+                ->setStatusCode(201);
+        } catch (\Throwable $th) {
+            return response()
+                ->setStatusCode(500);
+        }
     }
 
     /**
@@ -38,8 +50,14 @@ class ClienteController extends Controller
      */
     public function show($id)
     {
-        $clientes = Cliente::find($id);
-        return $clientes;
+        try {
+            $clientes = Cliente::find($id);
+            return response($clientes)
+                ->setStatusCode(200);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 
     /**
@@ -51,8 +69,15 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $cliente = Cliente::find($id)->update($request->all());
-        return $cliente;
+        try {
+            $clientes = Cliente::find($id)
+                ->update($request->all());
+            return response($clientes)
+                ->setStatusCode(201);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 
     /**
@@ -63,7 +88,14 @@ class ClienteController extends Controller
      */
     public function destroy($id)
     {
-        $cliente = Cliente::find($id)->delete();
-        return $cliente;
+        try {
+            $clientes = Cliente::find($id)
+                ->delete();
+            return response($clientes)
+                ->setStatusCode(200);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 }

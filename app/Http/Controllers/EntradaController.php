@@ -14,8 +14,14 @@ class EntradaController extends Controller
      */
     public function index()
     {
-        $entradas = Entrada::paginate(10);
-        return $entradas;
+        try {
+            $entradas = Entrada::paginate(10);
+            return response($entradas)
+                ->setStatusCode(200);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 
     /**
@@ -26,8 +32,14 @@ class EntradaController extends Controller
      */
     public function store(Request $request)
     {
-        $entradas = Entrada::create($request);
-        return $entradas;
+        try {
+            $entradas = Entrada::create($request);
+            return response($entradas)
+                ->setStatusCode(201);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 
     /**
@@ -38,7 +50,14 @@ class EntradaController extends Controller
      */
     public function show($id)
     {
-        $entradas = Entrada::find($id);
+        try {
+            $entradas = Entrada::find($id);
+            return response($entradas)
+                ->setStatusCode(200);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 
     /**
@@ -50,8 +69,15 @@ class EntradaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $entradas = Entrada::find($id)->update($request);
-        return $entradas;
+        try {
+            $entradas = Entrada::find($id)
+                ->update($request);
+            return response($entradas)
+                ->setStatusCode(200);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 
     /**
@@ -62,7 +88,14 @@ class EntradaController extends Controller
      */
     public function destroy($id)
     {
-        $entradas = Entrada::find($id)->delete();
-        return $entradas;
+        try {
+            $entradas = Entrada::find($id)
+                ->delete();
+            return response($entradas)
+                ->setStatusCode(200);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 }

@@ -14,8 +14,14 @@ class SaidaController extends Controller
      */
     public function index()
     {
-        $saidas = Saida::paginate(10);
-        return $saidas;
+        try {
+            $saidas = Saida::paginate(10);
+            return response($saidas)
+                ->setStatusCode(200);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 
     /**
@@ -26,8 +32,14 @@ class SaidaController extends Controller
      */
     public function store(Request $request)
     {
-        $saidas = Saida::create($request);
-        return $saidas;
+        try {
+            $saidas = Saida::create($request);
+            return response($saidas)
+                ->setStatusCode(201);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 
     /**
@@ -38,8 +50,14 @@ class SaidaController extends Controller
      */
     public function show($id)
     {
-        $saidas = Saida::find($id);
-        return $saidas;
+        try {
+            $saidas = Saida::find($id);
+            return response($saidas)
+                ->setStatusCode(200);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 
     /**
@@ -50,8 +68,15 @@ class SaidaController extends Controller
      */
     public function showFromVenda($id)
     {
-        $saidas = Saida::where('id_venda', $id);
-        return $saidas->get();
+        try {
+            $saidas = Saida::where('id_venda', $id)
+                ->get();
+            return response($saidas)
+                ->setStatusCode(200);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 
     /**
@@ -63,8 +88,14 @@ class SaidaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $saidas = Saida::find($id)->update($request);
-        return $saidas;
+        try {
+            $saidas = Saida::find($id)->update($request);
+            return response($saidas)
+                ->setStatusCode(200);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 
     /**
@@ -75,7 +106,13 @@ class SaidaController extends Controller
      */
     public function destroy($id)
     {
-        $saidas = Saida::find($id)->delete();
-        return $saidas;
+        try {
+            $saidas = Saida::find($id)->delete();
+            return response($saidas)
+                ->setStatusCode(200);
+        } catch (\Throwable $th) {
+            return response([])
+                ->setStatusCode(500);
+        }
     }
 }
